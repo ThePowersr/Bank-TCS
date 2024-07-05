@@ -1,4 +1,4 @@
-# Bank-Sofka
+# Bank-TCS
 prueba tecnica de desarrollo con React Native.
 
 

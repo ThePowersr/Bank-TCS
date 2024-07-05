@@ -1,12 +1,16 @@
 import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, View } from 'react-native'
 import InputCustom from '../components/InputCustom'
 import ButtonCustom from '../components/atoms/ButtonCustom'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from '../hooks/useForm'
 import UseApiInstance from '../hooks/UseApiInstance'
 import { fechaLiberacionChange, formatDateYyyyMmDd, initDate } from '../helpers/formatDate'
+import { RootStackParams } from '../navigator/Navigator'
+import { StackScreenProps } from '@react-navigation/stack'
 
-const ProductRegistrationScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'ProductRegistrationScreen'> { }
+
+const ProductRegistrationScreen: React.FC<Props> = ({ navigation }) => {
 
   const [error, setError] = useState('');
   const [valueRevision, setValueRevision] = useState('');
@@ -52,6 +56,7 @@ const ProductRegistrationScreen = () => {
         date_release: formattedFechaLiberacion,
         date_revision: formattedFechaRevision,
       })
+      navigation.navigate('Home')
       //console.log(post.data);
     } catch (error: any) {
       //console.log(error.response.data);
