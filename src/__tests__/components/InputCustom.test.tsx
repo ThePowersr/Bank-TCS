@@ -23,7 +23,7 @@ describe('map', () => {
   testData.map((item) => {
     it(`Validate input for type: ${item.type}`, async () => {
       const onChangeText = jest.fn();
-      const { getByPlaceholderText, getByText, debug } = render(<InputCustom type={item.type} onChangeText={onChangeText} />);
+      const { getByPlaceholderText, getByText } = render(<InputCustom title={item.type} placeholder={item.placeholder} type={item.type} onChangeText={onChangeText} />);
       const input = getByPlaceholderText(item.placeholder);
 
       fireEvent.changeText(input, item.inputTextValid);
@@ -33,7 +33,7 @@ describe('map', () => {
       expect(onChangeText).toHaveBeenCalledWith(item.inputTextValid);
     })
     it(`Validate input Error for type: ${item.type}`, async () => {
-      const { getByPlaceholderText, getByText, debug } = render(<InputCustom type={item.type} />);
+      const { getByPlaceholderText, getByText } = render(<InputCustom title='' placeholder={item.placeholder} type={item.type} />);
       const input = getByPlaceholderText(item.placeholder);
 
       if (item.type == 'Fecha de Revisión') return;
@@ -45,7 +45,7 @@ describe('map', () => {
     })
   })
   it('displays placeholder correctly for unknown type', () => {
-    const { getByPlaceholderText } = render(<InputCustom />); // fefault break;
+    const { getByPlaceholderText } = render(<InputCustom title='' placeholder='' />); // fefault break;
     const input = getByPlaceholderText('');
     expect(input).toBeTruthy();
   });

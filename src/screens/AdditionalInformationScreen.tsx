@@ -20,7 +20,7 @@ const AdditionalInformationScreen: React.FC<Props> = ({ navigation, route }) => 
       await UseApiInstance.delete(`/bp/products?id=${id}`);
       navigation.navigate('Home');
     } catch (error) {
-      console.log(error);
+      console.log(`${error}, error`);
     }
   };
 

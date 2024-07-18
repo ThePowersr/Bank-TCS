@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor, act } from '@testing-library/react-native';
 import AdditionalInformationScreen from '../../screens/AdditionalInformationScreen';
 import { formatDate } from '../../helpers/formatDate';
 
@@ -27,23 +27,26 @@ const mockProps = {
 };
 
 describe('AdditionalInformationScreen', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders correctly', () => {
     const { getByText, getByTestId } = render(<AdditionalInformationScreen {...mockProps} />);
 
-    // verify text render 
+    // Verify initial render
     expect(getByText('ID: 123')).toBeTruthy();
     expect(getByText('Product Name')).toBeTruthy();
     expect(getByText('Product Description')).toBeTruthy();
     expect(getByText('Fecha de liberacion')).toBeTruthy();
     expect(getByText('Fecha de revision')).toBeTruthy();
-
-    // verify image render
     expect(getByTestId('image')).toBeTruthy();
   });
 
   it('displays correct product information', () => {
     const { getByText } = render(<AdditionalInformationScreen {...mockProps} />);
 
+    // Verify product details
     expect(getByText(`ID: ${mockRoute.params.simpleProduct.id}`)).toBeTruthy();
     expect(getByText(mockRoute.params.simpleProduct.name)).toBeTruthy();
     expect(getByText(mockRoute.params.simpleProduct.description)).toBeTruthy();
@@ -51,43 +54,61 @@ describe('AdditionalInformationScreen', () => {
     expect(getByText(formatDate(mockRoute.params.simpleProduct.date_revision))).toBeTruthy();
   });
 
-  it('displays delete confirmation modal when "Eliminar" button is pressed', () => {
+  it('displays delete confirmation modal when "Eliminar" button is pressed', async () => {
     const { getByText, queryByText } = render(<AdditionalInformationScreen {...mockProps} />);
 
+    // Verify modal starts closed
     expect(queryByText('¿Estás seguro de eliminar el producto Product Name?')).toBeNull();
 
-    // Press the "Eliminar" button
-    fireEvent.press(getByText('Eliminar'));
-    //vefify modal
-    expect(getByText('¿Estás seguro de eliminar el producto Product Name?')).toBeTruthy();
+    // Open modal
+    await act(async () => {
+      fireEvent.press(getByText('Eliminar'));
+      await waitFor(() => {
+        expect(getByText('¿Estás seguro de eliminar el producto Product Name?')).toBeTruthy();
+      });
+      await waitFor(() => {
+        fireEvent.press(getByText('Confirmar'));
+      });
+    });
   });
 
   it('hides delete confirmation modal when "Cancelar" button is pressed', async () => {
     const { getByText, queryByText } = render(<AdditionalInformationScreen {...mockProps} />);
 
-    // show modal
-    fireEvent.press(getByText('Eliminar'));
+    // Open modal
+    await act(async () => {
+      fireEvent.press(getByText('Eliminar'));
+      await waitFor(() => {
+        expect(getByText('¿Estás seguro de eliminar el producto Product Name?')).toBeTruthy();
+      });
+    });
 
-    // Verify that the modal is visible
-    expect(getByText('¿Estás seguro de eliminar el producto Product Name?')).toBeTruthy();
-
-    // Press the "Cancelar" button
-    fireEvent.press(getByText('Cancelar'));
-
-    // Wait for the modal animation to complete
-    await waitFor(() => {
-      // Verify that the modal is no longer visible
-      expect(queryByText('¿Estás seguro de eliminar el producto Product Name?')).toBeNull();
+    // Close modal
+    await act(async () => {
+      fireEvent.press(getByText('Cancelar'));
+      await waitFor(() => {
+        expect(queryByText('¿Estás seguro de eliminar el producto Product Name?')).toBeNull();
+      });
     });
   });
 
   it('handles close icon press', async () => {
-    const { getByText, getByTestId } = render(<AdditionalInformationScreen {...mockProps} />);
+    const { getByText, getByTestId, queryByText } = render(<AdditionalInformationScreen {...mockProps} />);
 
-    fireEvent.press(getByText('Eliminar'));
-    // Press the "Confirmar" button
-    const featherIcon = getByTestId('feather-icon');
+    // Open modal
+    await act(async () => {
+      fireEvent.press(getByText('Eliminar'));
+      await waitFor(() => {
+        expect(getByText('¿Estás seguro de eliminar el producto Product Name?')).toBeTruthy();
+      });
+    });
 
-    fireEvent.press(featherIcon);
+    // Close modal by pressing close icon
+    await act(async () => {
+      fireEvent.press(getByTestId('feather-icon'));
+      await waitFor(() => {
+        expect(queryByText('¿Estás seguro de eliminar el producto Product Name?')).toBeNull();
+      });
+    });
   });
 });

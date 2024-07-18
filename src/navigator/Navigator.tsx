@@ -20,7 +20,6 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 const Navigator = () => {
   return (
     <NavigationContainer>
-
       <Stack.Navigator
         screenOptions={{
           headerTitleAlign: 'center',

@@ -8,7 +8,7 @@ import ErrorMessage from './atoms/ErrorMessage';
 
 interface Props {
   isRequired?: boolean;
-  type: 'ID' | 'Nombre' | 'Descripción' | 'Logo' | 'Fecha de Liberación' | 'Fecha de Revisión';
+  type?: 'ID' | 'Nombre' | 'Descripción' | 'Logo' | 'Fecha de Liberación' | 'Fecha de Revisión';
   onChangeText?: (text: string) => void;
   fechaLiberacion?: string;
   handleError?: (error: string) => void;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const InputCustom: React.FC<Props> = ({
-  type, onChangeText, fechaLiberacion, handleError, handleValue, title, placeholder, maxLength, value: initialValue = '', editable = true
+  type = '', onChangeText, fechaLiberacion, handleError, handleValue, title, placeholder, maxLength, value: initialValue = '', editable = true
 }) => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');

@@ -36,8 +36,8 @@ const ProductRegistrationScreen: React.FC<Props> = ({ navigation }) => {
   const handleSubmit = async () => {
     const { descripcion, fechaLiberacion, id, nombre, logo } = form;
     if (error || fechaLiberacion == '') {
-      console.log(valueRevision);
-      console.log(error);
+      //console.log(valueRevision);
+      //console.log(error);
       Alert.alert('Error', 'No puedes guardar campos con error o vacios.', [
         {
           text: 'Aceptar'
@@ -56,7 +56,7 @@ const ProductRegistrationScreen: React.FC<Props> = ({ navigation }) => {
         date_release: formattedFechaLiberacion,
         date_revision: formattedFechaRevision,
       })
-      navigation.navigate('Home')
+      navigation.navigate('Home');
       //console.log(post.data);
     } catch (error: any) {
       //console.log(error.response.data);
@@ -85,7 +85,7 @@ const ProductRegistrationScreen: React.FC<Props> = ({ navigation }) => {
             <InputCustom title='Descripcion' placeholder='Descripcion del producto' type='Descripción' onChangeText={(value) => onChange(value, 'descripcion')} handleError={handleError} />
             <InputCustom title='Logo' placeholder='Logo del producto' type='Logo' onChangeText={(value) => onChange(value, 'logo')} handleError={handleError} />
             <InputCustom title='FechaLiberacion' placeholder='Fecha de Liberacion del producto' type='Fecha de Liberación' onChangeText={handleFechaLiberacionChange} handleError={handleError} />
-            <InputCustom title='FechaRevision' placeholder='ejemplo: sldkfj' type='Fecha de Revisión' editable={false} fechaLiberacion={fechaLiberacion} handleValue={handleValue} />
+            <InputCustom title='FechaRevision' placeholder='Fecha de revision' type='Fecha de Revisión' editable={false} fechaLiberacion={fechaLiberacion} handleValue={handleValue} />
           </View>
           <ButtonCustom text='Enviar' onPress={handleSubmit} />
         </View>

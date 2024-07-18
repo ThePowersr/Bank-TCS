@@ -12,7 +12,7 @@ describe("render component <ListProduct/>", () => {
 
     const response = await axios.get('/bp/products');
 
-    const { getByTestId, debug, getByText } = render(<ListProduct data={response.data} />);
+    const { getByTestId, getByText } = render(<ListProduct data={response.data} />);
 
     expect(getByTestId("FlatListProduct"));
     response.data.map((product: TypeProduct) => {

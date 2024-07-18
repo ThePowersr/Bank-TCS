@@ -5,10 +5,16 @@ import HomeScreen from '../../screens/HomeScreen';
 import axiosMock from '../../../__mocks__/axios';;
 
 describe("render <HomeScreen/>", () => {
+
+  const navigation: any = {
+    navigate: jest.fn(),
+  };
+  const route: any = undefined;
+
   it("updates data on search", () => {
-    const { debug, getByTestId } = render(
+    const { getByTestId } = render(
       <NavigationContainer>
-        <HomeScreen />
+        <HomeScreen navigation={navigation} route={route} />
       </NavigationContainer>
     );
     const searchInput = getByTestId('search');
@@ -23,7 +29,7 @@ describe("render <HomeScreen/>", () => {
     const consoleLogSpy = jest.spyOn(console, 'log');
     render(
       <NavigationContainer>
-        <HomeScreen />
+        <HomeScreen navigation={navigation} route={route} />
       </NavigationContainer>
     );
     // wait for error
@@ -34,13 +40,10 @@ describe("render <HomeScreen/>", () => {
     // consoleLogSpy.mockRestore();
   });
   test('Button "Agregar" navigation to ProductRegistrationScreen', () => {
-    const navigation = {
-      navigate: jest.fn(),
-    };
 
     const { getByText } = render(
       <NavigationContainer>
-        <HomeScreen navigation={navigation} />
+        <HomeScreen navigation={navigation} route={route} />
       </NavigationContainer>
     );
     const addButton = getByText('Agregar');

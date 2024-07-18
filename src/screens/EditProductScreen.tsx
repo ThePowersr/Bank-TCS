@@ -40,7 +40,7 @@ const EditProductScreen = ({ navigation, route }: Props) => {
         date_release: formattedFechaLiberacion,
         date_revision: formattedFechaRevision,
       });
-      navigation.navigate('Home')
+      navigation.navigate('Home');
     } catch (error: any) {
       Alert.alert('Error', `${error.response.data}`, [
         {
@@ -57,51 +57,51 @@ const EditProductScreen = ({ navigation, route }: Props) => {
         <InputCustom
           type="ID"
           title="ID"
-          placeholder="Product ID"
+          placeholder="ID del producto"
           value={form.id}
-          onChangeText={(text) => handleInputChange('id', text)}
-          handleError={(error) => console.log('ID Error:', error)}
+          //onChangeText={(text) => handleInputChange('id', text)}
+          // handleError={(error) => console.log('ID Error:', error)}
           editable={false}  // Disable the ID field
         />
         <InputCustom
           type="Nombre"
           title="Nombre"
-          placeholder="Nombre de producto"
+          placeholder="Nombre del producto"
           value={form.name}
           onChangeText={(text) => handleInputChange('name', text)}
-          handleError={(error) => console.log('Name Error:', error)}
+        // handleError={(error) => console.log('Name Error:', error)}
         />
         <InputCustom
           type="Descripción"
           title="Descripción"
-          placeholder="Descripción del producto"
+          placeholder="Descripcion del producto"
           value={form.description}
           onChangeText={(text) => handleInputChange('description', text)}
-          handleError={(error) => console.log('Description Error:', error)}
+        // handleError={(error) => console.log('Description Error:', error)}
         />
         <InputCustom
           type="Logo"
           title="Logo"
-          placeholder="Logo de producto"
+          placeholder="Logo del producto"
           value={form.logo}
           onChangeText={(text) => handleInputChange('logo', text)}
-          handleError={(error) => console.log('Logo Error:', error)}
+        // handleError={(error) => console.log('Logo Error:', error)}
         />
         <InputCustom
           type="Fecha de Liberación"
-          title="Fecha de Liberación"
-          placeholder="dd/mm/yyyy"
+          title="Fecha de Liberacion del producto"
+          placeholder="Fecha de Liberacion del producto"
           value={form.date_release.toString()}
           onChangeText={(text) => handleInputChange('date_release', text)}
-          handleError={(error) => console.log('Date Release Error:', error)}
+        // handleError={(error) => console.log('Date Release Error:', error)}
         />
         <InputCustom
-          type="Fecha de Revisión"
-          title="Fecha de Revisión"
-          placeholder="dd/mm/yyyy"
+          type="Fecha de Liberación"
+          title="Fecha de revision"
+          placeholder="Fecha de revision"
           value={form.date_revision.toString()}
-          onChangeText={(text) => handleInputChange('date_revision', text)}
-          handleError={(error) => console.log('Date Revision Error:', error)}
+          //onChangeText={(text) => handleInputChange('date_revision', text)}
+          // handleError={(error) => console.log('Date Revision Error:', error)}
           editable={false}  // Disable the Fecha de Revisión field
         />
       </View>

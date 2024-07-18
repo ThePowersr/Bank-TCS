@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Text, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native'
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   onPress: () => void;
   text: string;
   colorText?: string;
@@ -9,10 +9,13 @@ interface Props {
   containerStyle?: ViewStyle;
 }
 
-const ButtonCustom = ({ onPress, text, colorText, colorBackground, containerStyle }: Props) => {
+const ButtonCustom = ({ onPress, text, colorText, colorBackground, containerStyle, accessible, accessibilityHint, accessibilityLabel }: Props) => {
   return (
     <View style={{ paddingBottom: 0, ...containerStyle }}>
       <TouchableOpacity
+        accessibilityHint={accessibilityHint}
+        accessibilityLabel={accessibilityLabel}
+        accessible={accessible}
         testID={text}
         style={
           {

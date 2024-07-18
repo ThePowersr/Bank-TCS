@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }: Props) => {
         setOriginalData(response.data);
       });
     } catch (error: any) {
-      console.log(error)
+      console.log(`${error}, aqui`)
     }
   };
 
@@ -65,13 +65,27 @@ const HomeScreen = ({ navigation }: Props) => {
             autoCapitalize='none'
             value={searchTerm}
             onChangeText={text => setSearchTerm(text)}
+            accessible={true}
+            accessibilityLabel='Buscar productos'
+            accessibilityHint='Introduce un término de búsqueda para filtrar la lista de productos'
           />
         </View>
         <View style={{ justifyContent: 'space-between', flex: 1, paddingBottom: 40 }}>
-          <ListProduct testID={'list-product'} data={data ?? product} navigation={navigation} />
+          <ListProduct
+            testID={'list-product'}
+            data={data ?? product}
+            navigation={navigation}
+            accessible={true}
+            accessibilityLabel='Lista de productos'
+            accessibilityHint='Muestra una lista de productos'
+          />
           <ButtonCustom
             text='Agregar'
             onPress={() => navigation.navigate('ProductRegistrationScreen')}
+            accessible={true}
+            accessibilityViewIsModal={true}
+            accessibilityLabel='Agregar producto'
+            accessibilityHint='Navega a la pantalla de registro de productos'
           />
         </View>
       </View>

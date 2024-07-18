@@ -32,7 +32,9 @@ const mockResponse = {
 const axiosMock: any = {
   create: jest.fn(() => axiosMock),
   get: jest.fn().mockResolvedValue(mockResponse),
-  post: jest.fn()
+  post: jest.fn(),
+  put: jest.fn(),
+  delete: jest.fn()
 };
 
 export default axiosMock;
